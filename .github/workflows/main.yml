@@ -26,7 +26,7 @@ jobs:
           pwd
           ls -la
           version=$(cat VERSION)
-          ECHO "version: $version"
+          echo "version: $version"
 
 
           # Extract major, minor, and patch
@@ -46,7 +46,7 @@ jobs:
           
           # Write the new version to the VERSION file and commit
           echo $new_version > VERSION
-          ECHO "version: $new_version"
+          echo "version: $new_version"
           git config --local user.name "github-actions"
           git config --local user.email "actions@github.com"
           git commit -am "Bump version to $new_version"
