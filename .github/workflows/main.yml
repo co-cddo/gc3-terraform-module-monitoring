@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+            ref: ${{ github.ref_name }}
+            path: ${{ github.ref_name }}
 
       - name: Read and Bump Version
         id: bump
@@ -19,7 +22,7 @@ jobs:
           # Read the current version from the VERSION file
 
           pwd
-          version=$(cat ../VERSION)
+          version=$(cat VERSION)
           
           # Extract major, minor, and patch
           major=$(echo $version | cut -d '.' -f 1 | sed 's/v//')
@@ -37,7 +40,7 @@ jobs:
           new_version="v${major}.${minor}.${patch}"
           
           # Write the new version to the VERSION file and commit
-          echo $new_version > ../VERSION
+          echo $new_version > VERSION
           git config --local user.name "github-actions"
           git config --local user.email "actions@github.com"
           git commit -am "Bump version to $new_version"
