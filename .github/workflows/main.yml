@@ -43,8 +43,8 @@ jobs:
           git tag $new_version
           git push origin $new_version
 
-        # Set the new version as an output variable for this step
-        echo "::set-output name=new_version::$new_version"
+          # Set the new version as an output variable for this step
+          echo "::set-output name=new_version::$new_version"
 
   validate:
     runs-on: ubuntu-latest
