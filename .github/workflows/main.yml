@@ -20,7 +20,9 @@ jobs:
         id: bump
         run: |
           # Read the current version from the VERSION file
-
+          echo "started"
+          git status
+          echo "${{ github.ref_name }}"
           pwd
           ls -la
           version=$(cat VERSION)
