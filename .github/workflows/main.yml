@@ -103,20 +103,21 @@ jobs:
         run: terraform fmt -check
 
       # Release
-
-      - name: Extract Release Notes
-        id: extract_notes
+      - name: Check for Release Notes
+        id: check_release_notes
         run: |
-          # Extract notes for the specific version
+          # Search for release notes for the specified version in release-notes.md
           version_regex="## $NEW_VERSION"
           notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
-          if [ -z "$notes" ]; then
-            echo "Error: No release notes found for version $NEW_VERSION."
-            exit 1
+          if [ -n "$notes" ]; then
+            echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
+            echo "Found release notes for version $NEW_VERSION."
+          else
+            echo "No release notes found for version $NEW_VERSION."
           fi
-          echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
 
       - name: Create GitHub Release
+        if: env.RELEASE_NOTES
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -126,7 +127,7 @@ jobs:
           body: ${{ env.RELEASE_NOTES }}
           draft: false
           prerelease: false
-          
+
       # - name: Create GitHub Release
       #   id: create_release
       #   uses: actions/create-release@v1

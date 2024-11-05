@@ -10,8 +10,8 @@
 - Fixed an issue with resource allocation.
 - Enhanced support for multi-region deployments.
 
-## v1.1.1
-- Minor update to increase stability.
+## v1.0.1
+- Added multiple endpoint support
 
-## v1.1.0
-- Fixed an issue in the logging mechanism.
+## v1.0.0
+- Module created
