@@ -64,8 +64,12 @@ jobs:
       - name: Check for Release Notes
         id: check_release_notes
         run: |
-          # Search for release notes for the specified version in release-notes.md
-          version_regex="## $NEW_VERSION"
+          version_regex="## ${NEW_VERSION}"
+          
+          # Debugging: Print the regex and contents of the release notes file
+          echo "Looking for release notes with regex: '$version_regex'"
+          echo "Contents of release-notes.md:"
+          cat release-notes.md
           notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
           if [ -n "$notes" ]; then
             echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
@@ -73,6 +77,15 @@ jobs:
           else
             echo "No release notes found for version $NEW_VERSION."
           fi
+          # # Search for release notes for the specified version in release-notes.md
+          # version_regex="## $NEW_VERSION"
+          # notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
+          # if [ -n "$notes" ]; then
+          #   echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
+          #   echo "Found release notes for version $NEW_VERSION."
+          # else
+          #   echo "No release notes found for version $NEW_VERSION."
+          # fi
 
       - name: Create GitHub Release
         if: env.RELEASE_NOTES
