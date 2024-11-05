@@ -54,7 +54,6 @@ jobs:
       #     # Read the current version from the VERSION file
       #     echo "started"
       #     git status
-      #     echo "${{ github.ref_name }}"
       #     pwd
       #     ls -la
       #     version=$(cat VERSION)
@@ -84,7 +83,7 @@ jobs:
       #     git commit -am "Bump version to $new_version"
 
       #     # Create a new git tag
-      #     git push origin ${{ github.ref_name }}
+
       #     git tag $new_version
       #     git push origin $new_version
       #     echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
@@ -104,52 +103,42 @@ jobs:
         run: terraform fmt -check
 
       # Release
+
+      - name: Extract Release Notes
+        id: extract_notes
+        run: |
+          # Extract notes for the specific version
+          version_regex="## $NEW_VERSION"
+          notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
+          if [ -z "$notes" ]; then
+            echo "Error: No release notes found for version $NEW_VERSION."
+            exit 1
+          fi
+          echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
+
       - name: Create GitHub Release
-        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.NEW_VERSION }}
           release_name: Release ${{ env.NEW_VERSION }}
-          body: |
-            Version ${{ env.NEW_VERSION }} of the Terraform module.
-            - [x] Validated syntax
-            - [x] Terraform formatted
-            - [x] Ready for use
+          body: ${{ env.RELEASE_NOTES }}
           draft: false
           prerelease: false
-
-
-
-  # validate:
-  #   runs-on: ubuntu-latest
-  #   needs: bump-version
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0  # Ensure we fetch tags
-
-  #     - name: Set up Terraform
-  #       uses: hashicorp/setup-terraform@v2
-  #       with:
-  #         terraform_version: 1.5.7
-
-  #     - name: Initialize Terraform
-  #       run: terraform init
-
-  #     - name: Validate Terraform
-  #       run: terraform validate
-
-  #     - name: Format check
-  #       run: terraform fmt -check
-
-  # release:
-  #   runs-on: ubuntu-latest
-  #   needs: [bump-version, validate]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-
+          
+      # - name: Create GitHub Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ env.NEW_VERSION }}
+      #     release_name: Release ${{ env.NEW_VERSION }}
+      #     body: |
+      #       Version ${{ env.NEW_VERSION }} of the Terraform module.
+      #       - [x] Validated syntax
+      #       - [x] Terraform formatted
+      #       - [x] Ready for use
+      #     draft: false
+      #     prerelease: false
