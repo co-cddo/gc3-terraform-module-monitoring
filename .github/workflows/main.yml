@@ -6,6 +6,10 @@ on:
       - main
       - basic-monitoring
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   bump-version:
     runs-on: ubuntu-latest
