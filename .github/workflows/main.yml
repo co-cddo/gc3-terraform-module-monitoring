@@ -65,8 +65,6 @@ jobs:
         id: check_release_notes
         run: |
           version_regex="## ${NEW_VERSION}"
-          
-          # Debugging: Print the regex and contents of the release notes file
           echo "Looking for release notes with regex: '$version_regex'"
           notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
           if [ -n "$notes" ]; then
