@@ -106,61 +106,6 @@ jobs:
           prerelease: false
 
 
-
-
-
-
-
-
-
-
-      # - name: Check for Release Notes
-      #   id: check_release_notes
-      #   run: |
-      #     version_regex="## ${NEW_VERSION}"
-      #     echo "Looking for release notes with regex: '$version_regex'"
-      #     notes=$(awk "/$version_regex/,/^## /{if (\$0 !~ /^## /) print}" release-notes.md)
-      #     if [ -n "$notes" ]; then
-      #       echo "RELEASE_NOTES=$notes" >> $GITHUB_ENV
-      #       echo "Found release notes for version $NEW_VERSION."
-      #     else
-      #       echo "No release notes found for version $NEW_VERSION."
-      #     fi
-
-      # - name: Create GitHub Release
-      #   if: env.RELEASE_NOTES
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ env.NEW_VERSION }}
-      #     release_name: Release ${{ env.NEW_VERSION }}
-      #     body: ${{ env.RELEASE_NOTES }}
-      #     draft: false
-      #     prerelease: false
-
-
-
-
-
-
-
-      # - name: Create GitHub Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ env.NEW_VERSION }}
-      #     release_name: Release ${{ env.NEW_VERSION }}
-      #     body: |
-      #       Version ${{ env.NEW_VERSION }} of the Terraform module.
-      #       - [x] Validated syntax
-      #       - [x] Terraform formatted
-      #       - [x] Ready for use
-      #     draft: false
-      #     prerelease: false
-
             # - name: Read and Bump Version
       #   id: bump
       #   run: |
