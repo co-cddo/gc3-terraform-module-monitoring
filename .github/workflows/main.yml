@@ -27,7 +27,8 @@ jobs:
       - name: Read Version And Check
         id: read_version
         run: |
-          # Read the current version from the VERSION file
+          pwd
+          ls -al
           version=$(cat VERSION)
           echo "Version from file: $version"
     
