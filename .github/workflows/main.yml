@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
             ref: ${{ github.ref_name }}
             # path: ${{ github.ref_name }}
@@ -88,7 +88,7 @@ jobs:
       #     echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.7
   
@@ -102,13 +102,9 @@ jobs:
         run: terraform fmt -check
 
       # Release
-      - name: Get new version
-        id: get_version
-        run: echo "New version is ${{ needs.bump-version.outputs.new_version }}"
-
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -154,22 +150,4 @@ jobs:
   #     - name: Checkout code
   #       uses: actions/checkout@v3
 
-  #     - name: Get new version
-  #       id: get_version
-  #       run: echo "New version is ${{ needs.bump-version.outputs.new_version }}"
 
-  #     - name: Create GitHub Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ needs.bump-version.outputs.new_version }}
-  #         release_name: Release ${{ needs.bump-version.outputs.new_version }}
-  #         body: |
-  #           Version ${{ needs.bump-version.outputs.new_version }} of the Terraform module.
-  #           - [x] Validated syntax
-  #           - [x] Terraform formatted
-  #           - [x] Ready for use
-  #         draft: false
-  #         prerelease: false
