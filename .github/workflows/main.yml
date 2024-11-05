@@ -45,7 +45,6 @@ jobs:
           # Tag the commit with the version and push the tag
           git tag $NEW_VERSION
           git push origin $NEW_VERSION
-          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
