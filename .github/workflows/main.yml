@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - basic-monitoring
     paths-ignore:
       - '**.md'
 
@@ -104,44 +103,4 @@ jobs:
           body: ${{ env.RELEASE_NOTES }}
           draft: false
           prerelease: false
-
-
-            # - name: Read and Bump Version
-      #   id: bump
-      #   run: |
-      #     # Read the current version from the VERSION file
-      #     echo "started"
-      #     git status
-      #     pwd
-      #     ls -la
-      #     version=$(cat VERSION)
-      #     echo "version: $version"
-
-
-      #     # Extract major, minor, and patch
-      #     major=$(echo $version | cut -d '.' -f 1 | sed 's/v//')
-      #     minor=$(echo $version | cut -d '.' -f 2)
-      #     patch=$(echo $version | cut -d '.' -f 3)
-
-      #     # Logic for bumping version
-      #     if [[ "$patch" == "x" ]]; then
-      #       patch=0
-      #     else
-      #       patch=$((patch + 1))
-      #     fi
           
-      #     # Format new version as v<major>.<minor>.<patch>
-      #     new_version="v${major}.${minor}.${patch}"
-          
-      #     # Write the new version to the VERSION file and commit
-      #     echo $new_version > VERSION
-      #     echo "version: $new_version"
-      #     git config --local user.name "github-actions"
-      #     git config --local user.email "actions@github.com"
-      #     git commit -am "Bump version to $new_version"
-
-      #     # Create a new git tag
-
-      #     git tag $new_version
-      #     git push origin $new_version
-      #     echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
