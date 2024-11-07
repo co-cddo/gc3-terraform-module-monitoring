@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - basic-monitoring
+      # - basic-monitoring
     paths-ignore:
       - '**.md'
   pull_request:
@@ -18,11 +18,6 @@ jobs:
   check-and-release:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
-      #   with:
-      #       ref: ${{ github.ref_name }}
-      #       # path: ${{ github.ref_name }}
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
