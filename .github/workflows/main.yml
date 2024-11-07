@@ -18,15 +18,23 @@ jobs:
   check-and-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      #   with:
+      #       ref: ${{ github.ref_name }}
+      #       # path: ${{ github.ref_name }}
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-            ref: ${{ github.ref_name }}
-            # path: ${{ github.ref_name }}
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Read Version
         id: read_version
         run: |
+          pwd
+          ls -la
+          git status
           # Read the version from the VERSION file
           version=$(cat VERSION)
           echo "NEW_VERSION=$version" >> $GITHUB_ENV
