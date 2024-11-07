@@ -7,10 +7,12 @@ on:
       - basic-monitoring
     paths-ignore:
       - '**.md'
-
+  pull_request:
+    types: [opened, synchronize] 
 permissions:
   id-token: write
   contents: write
+  pull-requests: read
 
 jobs:
   check-and-release:
@@ -22,30 +24,24 @@ jobs:
             ref: ${{ github.ref_name }}
             # path: ${{ github.ref_name }}
 
-      - name: Read Version And Check
+      - name: Read Version
         id: read_version
         run: |
-          pwd
-          ls -al
+          # Read the version from the VERSION file
           version=$(cat VERSION)
-          echo "Version from file: $version"
-    
-          # Export the version as an environment variable
           echo "NEW_VERSION=$version" >> $GITHUB_ENV
-    
+
+      - name: Read Version And Check
+        id: check_tag
+        run: |
           # Check if the tag already exists in Git
           if git rev-parse "$NEW_VERSION" >/dev/null 2>&1; then
             echo "Error: Tag $NEW_VERSION already exists."
             exit 1
+          else
+            echo "Tag $NEW_VERSION will be created when merging is cpompleted."
           fi
     
-      - name: Create Git Tag
-        if: steps.read_version.outcome == 'success'
-        run: |
-          # Tag the commit with the version and push the tag
-          git tag $NEW_VERSION
-          git push origin $NEW_VERSION
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -60,8 +56,17 @@ jobs:
       - name: Format check
         run: terraform fmt -check
 
-      # Release
+      # Tag and Release
+      - name: Create Git Tag
+        if: github.event_name == 'push' && success()
+        # if: steps.check_tag.outcome == 'success'
+        run: |
+          # Tag the commit with the version and push the tag
+          git tag $NEW_VERSION
+          git push origin $NEW_VERSION
+
       - name: Check for Release Notes
+        if: github.event_name == 'push' && success()
         id: check_release_notes
         continue-on-error: true
         run: |
@@ -94,7 +99,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
-        if: env.NOTES_FOUND == 'true'
+        if: env.NOTES_FOUND == 'true' && github.event_name == 'push' && success()
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
