@@ -75,8 +75,7 @@ jobs:
         run: |
           version_regex="^## ${NEW_VERSION}\$"
           echo "Looking for release notes with version: '${NEW_VERSION}'"
-          
-          # Extract notes for specific version, handling both middle and end cases
+          # Extract notes for target version
           notes=$(awk -v ver="$version_regex" '
             # Start capturing when we find our version
             $0 ~ ver {capture=1; next}
