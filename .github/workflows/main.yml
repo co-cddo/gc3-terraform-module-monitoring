@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      # - basic-monitoring
+      - basic-monitoring
     paths-ignore:
       - '**.md'
   pull_request:
