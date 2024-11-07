@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - main
-      - basic-monitoring
+      # - basic-monitoring
     paths-ignore:
       - '**.md'
-  pull_request:
-    types: [opened, synchronize] 
+  # pull_request:
+  #   types: [opened, synchronize] 
 permissions:
   id-token: write
   contents: write
-  pull-requests: read
+  # pull-requests: read
 
 jobs:
   check-and-release:
