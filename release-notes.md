@@ -1,6 +1,4 @@
-# gccc-tf-module-monitoring
-
-Terraform module for monitoring
+# Release Notes
 
 ## v1.1.2
 - Added feature X for improved performance.
