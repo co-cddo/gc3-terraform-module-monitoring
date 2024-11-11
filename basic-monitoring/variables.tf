@@ -1,9 +1,3 @@
-# variable "health_check_name" {
-#   description = "Name tag for the health check"
-#   type        = string
-#   default     = ""
-# }
-
 variable "fqdn" {
   description = "The FQDN of the health check"
   type        = string
@@ -13,29 +7,6 @@ variable "port" {
   description = "The port number for the health check"
   type        = number
 }
-
-# variable "resource_path" {
-#   description = "The resource path for the health check"
-#   type        = string
-# }
-
-# variable "request_interval" {
-#   description = "The request interval for the health check"
-#   type        = number
-#   default     = 30
-# }
-
-# variable "failure_threshold" {
-#   description = "The failure threshold for the health check"
-#   type        = number
-#   default     = 1
-# }
-
-# variable "search_string" {
-#   description = "The search string for the health check"
-#   type        = string
-#   default     = ""
-# }
 
 variable "health_check_regions" {
   description = "Regions where the health check is monitored"
@@ -59,8 +30,6 @@ variable "endpoints" {
     type              = string  # Either "HTTPS" or "HTTPS_STR_MATCH"
   }))
 }
-
-
 
 locals {
   service_name   = "webcaf"
