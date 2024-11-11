@@ -47,6 +47,7 @@ output "health_check_ids" {
 output "sns_topic_arn" {
   value = module.webcaf_health_check.sns_topic_arn
 }
+```
 
 ### Required Variables
 
