@@ -15,7 +15,7 @@ This Terraform module, **basic-monitoring**, is designed to set up AWS monitorin
 ### Example Usage
 
 ```hcl
-module "webcaf_health_check" {
+module "myapp_health_check" {
   source = "git::https://github.com/co-cddo/gccc-tf-module-monitoring.git//basic-monitoring?ref=v1.0.1"
 
   fqdn   = "example.com"
@@ -41,11 +41,11 @@ module "webcaf_health_check" {
 }
 
 output "health_check_ids" {
-  value = module.webcaf_health_check.health_check_ids
+  value = module.myapp_health_check.health_check_ids
 }
 
 output "sns_topic_arn" {
-  value = module.webcaf_health_check.sns_topic_arn
+  value = module.myapp_health_check.sns_topic_arn
 }
 ```
 
