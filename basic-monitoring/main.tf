@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "alarm_topic" {
-  name = "${local.service_name_w}-health-check-alerts"
+  name = "${var.stack_name}-health-check-alerts"
 }
 
 resource "aws_sns_topic_subscription" "email_subscription" {
@@ -21,7 +21,7 @@ resource "aws_route53_health_check" "health_check_str_match" {
   regions           = var.health_check_regions
 
   tags = {
-    Name = "${local.service_name_w}-health-check-${each.key}"
+    Name = "${var.stack_name}-health-check-${each.key}"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_route53_health_check" "health_check_https" {
   regions           = var.health_check_regions
 
   tags = {
-    Name = "${local.service_name_w}-health-check-${each.key}"
+    Name = "${var.stack_name}-health-check-${each.key}"
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_cloudwatch_metric_alarm" "health_check_alarm" {
     aws_route53_health_check.health_check_https
   )
 
-  alarm_name          = "${local.service_name_w}-health-check-alarm-${each.key}"
+  alarm_name          = "${var.stack_name}-health-check-alarm-${each.key}"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
   metric_name         = "HealthCheckStatus"

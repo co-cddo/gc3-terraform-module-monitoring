@@ -1,3 +1,8 @@
+variable "stack_name" {
+  description = "Name of the stack to be monitored. Could be like myservice-environment"
+  type        = string
+}
+
 variable "fqdn" {
   description = "The FQDN of the health check"
   type        = string
@@ -29,9 +34,4 @@ variable "endpoints" {
     failure_threshold = number
     type              = string  # Either "HTTPS" or "HTTPS_STR_MATCH"
   }))
-}
-
-locals {
-  service_name   = "webcaf"
-  service_name_w = "webcaf-${terraform.workspace}"
 }
