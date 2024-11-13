@@ -1,4 +1,4 @@
-# gccc-tf-module-monitoring
+# gc3-tf-module-monitoring
 
 # Basic Monitoring Module
 
