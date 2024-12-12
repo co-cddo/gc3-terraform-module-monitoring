@@ -35,7 +35,7 @@ output "cloudwatch_alarm_arn" {
 ### Required Variables
 
 - **`lambda_name`** (string): Required : A unique name for the alarm.
-- **`alarm_name`** (string): Required: The descriptive name for the alarm. This name must be unique within the user's AWS account. Automatically appended with "-Error-Alarm"
+- **`alarm_name`** (string): Required: The descriptive name for the alarm. This name must be unique within the user's AWS account.
 - **`metric_name`** (string): Required : The name for the alarm's associated metric.
 
 ### Optional Variables
