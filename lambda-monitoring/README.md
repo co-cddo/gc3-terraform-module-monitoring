@@ -37,6 +37,7 @@ output "cloudwatch_alarm_arn" {
 - **`lambda_name`** (string): Required : A unique name for the alarm.
 - **`alarm_name`** (string): Required: The descriptive name for the alarm. This name must be unique within the user's AWS account.
 - **`metric_name`** (string): Required : The name for the alarm's associated metric.
+- **`topic_subscription`** (string): Required : Endpoint to send data to. For email this is the email address.
 
 ### Optional Variables
 
@@ -44,14 +45,13 @@ output "cloudwatch_alarm_arn" {
 - **`evaluation_periods`** (number): Default **1** : The number of periods over which data is compared to the specified threshold. 
 - **`namespace`** (string): Default **AWS/Lambda** : The namespace for the alarm's associated metric.
 - **`period`** (string): Default **3** : The period in seconds over which the specified statistic is applied. Valid values are 10, 30, or any multiple of 60
-- **`statistic`** (string): Default **Sum** : The statistic to apply to the alarm's associated metric. Either of the following is supported: SampleCount, Average, Sum, Minimum, Maximum
+- **`statistic`** (string): Default **Sum** : The statistic to apply to the alarm's associated metric. i.e. SampleCount, Average, Sum, Minimum, Maximum
 - **`threshold`** (number): Default **3** : The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds.
-- **`insufficient_data_actions`** (list(string)): Default **[]** : (Optional) The list of actions to execute when this alarm transitions into an INSUFFICIENT_DATA state from any other state.
+- **`insufficient_data_actions`** (list(string)): Default **[]** : (Optional) The list of actions to execute when this alarm transitions into an INSUFFICIENT_DATA state.
 - **`treat_missing_data`** (string): (Optional): Default **missing** : Sets how this alarm is to handle missing data points.
 - **`alarm_description`** (string): (Optional): Default **Alarm for Lambda function errors exceeding threshold** : 
 
 - **`protocol`** (string): Default **email** : Protocol to use.
-- **`topic_subscription`** (string): Required : Endpoint to send data to; for email this is the email address.
 
 ### Outputs
 
