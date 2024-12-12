@@ -41,17 +41,17 @@ output "cloudwatch_alarm_arn" {
 
 ### Optional Variables
 
-- **`comparison_operator`** (string): Default **GreaterThanOrEqualToThreshold** : The arithmetic operation to use when comparing the specified Statistic and Threshold.
-- **`evaluation_periods`** (number): Default **1** : The number of periods over which data is compared to the specified threshold. 
-- **`namespace`** (string): Default **AWS/Lambda** : The namespace for the alarm's associated metric.
-- **`period`** (string): Default **3** : The period in seconds over which the specified statistic is applied. Valid values are 10, 30, or any multiple of 60
-- **`statistic`** (string): Default **Sum** : The statistic to apply to the alarm's associated metric. i.e. SampleCount, Average, Sum, Minimum, Maximum
-- **`threshold`** (number): Default **3** : The value against which the specified statistic is compared. This parameter is required for alarms based on static thresholds.
-- **`insufficient_data_actions`** (list(string)): Default **[]** : (Optional) The list of actions to execute when this alarm transitions into an INSUFFICIENT_DATA state.
-- **`treat_missing_data`** (string): (Optional): Default **missing** : Sets how this alarm is to handle missing data points.
-- **`alarm_description`** (string): (Optional): Default **Alarm for Lambda function errors exceeding threshold** : 
+- **`comparison_operator`** (string): Def **GreaterThanOrEqualToThreshold** : The operation to use when comparing the specified Statistic and Threshold.
+- **`evaluation_periods`** (number): Def **1** : The number of periods over which data is compared. 
+- **`namespace`** (string): Def **AWS/Lambda** : The namespace for the alarm's associated metric.
+- **`period`** (string): Def **30** : The period in seconds over which the specified statistic is applied. 10, 30, or any multiple of 60
+- **`statistic`** (string): Def **Sum** : The statistic to apply to the alarm's associated metric. i.e. SampleCount, Average, Sum, Minimum, Maximum
+- **`threshold`** (number): Def **3** : The value against which the specified statistic is compared.
+- **`insufficient_data_actions`** (list(string)): Def **[]** : (Optional) The list of actions to execute when this alarm transitions into an INSUFFICIENT_DATA state.
+- **`treat_missing_data`** (string): (Optional): Def **missing** : Sets how this alarm is to handle missing data points.
+- **`alarm_description`** (string): (Optional): Def **Alarm for Lambda function errors exceeding threshold** : 
 
-- **`protocol`** (string): Default **email** : Protocol to use.
+- **`protocol`** (string): Def **email** : Protocol to use.
 
 ### Outputs
 
