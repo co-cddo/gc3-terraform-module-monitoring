@@ -66,3 +66,17 @@ output "sns_topic_arn" {
 
 - **`health_check_ids`** (map): A map of health check IDs for each configured endpoint.
 - **`sns_topic_arn`** (string): ARN of the SNS topic used for health check alerts.
+
+# Lambda Monitoring Module
+
+This Terraform module, **lambda-monitoring**, is designed to set up AWS monitoring and reporting for a lambda mfunction. It includes functionality for lambda and CloudWatch alarms. 
+
+## Features
+
+- **SNS Alerts**: A single SNS topic that sends notifications to a specified email when health checks fail.
+- **CloudWatch Alarms**: Monitors health check statuses and triggers alerts via SNS.
+
+## Documentation
+
+Refer to the README.md in the lambda-monitoring folder for a detailed description.
+
