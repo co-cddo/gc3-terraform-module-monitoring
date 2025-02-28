@@ -79,4 +79,3 @@ This Terraform module, **lambda-monitoring**, is designed to set up AWS monitori
 ## Documentation
 
 Refer to the README.md in the lambda-monitoring folder for a detailed description.
-
